@@ -28,13 +28,35 @@ npm run dev
 Notas:
 - Este repositorio fue inicializado y vinculado al remote: https://github.com/Santiago-Neira/CrossGameFront.git
 
-  # Untitled
+Docker
+------
 
-  This is a code bundle for Untitled. The original project is available at https://www.figma.com/design/LOvrLNomb3H2JystKPWl6g/Untitled.
+Se incluye un `Dockerfile` multi-stage y un `docker-compose.yml` para construir y servir la aplicación con nginx.
 
-  ## Running the code
+Construir la imagen (sin docker-compose):
 
-  Run `npm i` to install the dependencies.
+```powershell
+docker build -t crossgamefront:latest .
+```
 
-  Run `npm run dev` to start the development server.
+Ejecutar la imagen:
+
+```powershell
+docker run --rm -p 8080:80 crossgamefront:latest
+```
+
+Con docker-compose (construye y arranca el servicio):
+
+```powershell
+docker-compose up --build
+```
+
+La aplicación quedará accesible en http://localhost:8080
+
+Archivos añadidos para Docker:
+
+- `Dockerfile` - multi-stage build (node -> nginx)
+- `nginx.conf` - configuración para SPA (fallback a index.html)
+- `.dockerignore` - evita copiar artefactos innecesarios
+- `docker-compose.yml` - conveniencia para desarrollo/ejecución local
   

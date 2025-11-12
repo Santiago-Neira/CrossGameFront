@@ -1,16 +1,56 @@
-import { Star, Heart, Clock, Users, Wifi, Monitor, User } from "lucide-react";
+import { Star, Heart, Clock, Users, Wifi, Monitor, User, Loader } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { getGameDetail } from "./game-detail-data";
+import { getGameDetail, GameDetail } from "./game-detail-data";
 import { Separator } from "./ui/separator";
+import { useEffect, useState } from "react";
 
 interface GameDetailViewProps {
   gameId: number;
 }
 
 export function GameDetailView({ gameId }: GameDetailViewProps) {
-  const game = getGameDetail(gameId);
+  const [game, setGame] = useState<GameDetail | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadGameDetail = async () => {
+      try {
+        setLoading(true);
+        const gameData = await getGameDetail(gameId);
+        setGame(gameData);
+      } catch (error) {
+        console.error("Error loading game detail:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadGameDetail();
+  }, [gameId]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0a0e17] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <Loader className="w-8 h-8 text-blue-500 animate-spin" />
+          <p className="text-muted-foreground">Cargando información del juego...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!game) {
+    return (
+      <div className="min-h-screen bg-[#0a0e17] flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-xl text-white">No se pudo cargar el juego</p>
+          <p className="text-muted-foreground">Por favor, intenta más tarde</p>
+        </div>
+      </div>
+    );
+  }
 
   const renderStars = (rating: number) => {
     return (

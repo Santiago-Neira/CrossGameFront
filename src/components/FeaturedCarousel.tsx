@@ -1,18 +1,12 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-
-interface FeaturedGame {
-  id: number;
-  title: string;
-  genres: string[];
-  image: string;
-}
+import { useGames } from "../hooks/useGames";
 
 interface FeaturedCarouselProps {
   onGameClick?: (gameId: number) => void;
 }
 
-const featuredGames: FeaturedGame[] = [
+const defaultFeatured = [
   {
     id: 1,
     title: "Cyber Revolution 2077",
@@ -40,6 +34,10 @@ const featuredGames: FeaturedGame[] = [
 ];
 
 export function FeaturedCarousel({ onGameClick }: FeaturedCarouselProps) {
+  const { games, loading } = useGames();
+
+  const featured = !loading && games && games.length > 0 ? games.slice(0, 4) : defaultFeatured;
+
   return (
     <section className="relative">
       <Carousel 
@@ -50,7 +48,7 @@ export function FeaturedCarousel({ onGameClick }: FeaturedCarouselProps) {
         className="w-full"
       >
         <CarouselContent>
-          {featuredGames.map((game) => (
+          {featured.map((game: any) => (
             <CarouselItem key={game.id}>
               <button
                 onClick={() => onGameClick?.(game.id)}
@@ -58,7 +56,7 @@ export function FeaturedCarousel({ onGameClick }: FeaturedCarouselProps) {
               >
                 {/* Game Image */}
                 <ImageWithFallback
-                  src={game.image}
+                  src={game.image || game.mainImage}
                   alt={game.title}
                   className="w-full h-full object-cover"
                 />
@@ -70,7 +68,7 @@ export function FeaturedCarousel({ onGameClick }: FeaturedCarouselProps) {
                 <div className="absolute bottom-0 left-0 right-0 p-12">
                   <h2 className="text-5xl mb-3 text-white group-hover:text-blue-400 transition-colors">{game.title}</h2>
                   <div className="flex gap-3">
-                    {game.genres.map((genre, index) => (
+                    {(game.genres || []).slice(0,3).map((genre: string, index: number) => (
                       <span
                         key={index}
                         className="px-4 py-1.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded text-sm text-white"

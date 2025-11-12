@@ -8,9 +8,10 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 interface LoginModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onSwitchToRegister?: () => void;
 }
 
-export function LoginModal({ open, onOpenChange }: LoginModalProps) {
+export function LoginModal({ open, onOpenChange, onSwitchToRegister }: LoginModalProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -117,7 +118,7 @@ export function LoginModal({ open, onOpenChange }: LoginModalProps) {
                 <button
                   type="button"
                   className="text-[#007BFF] hover:text-[#0066CC] transition-colors"
-                  onClick={() => console.log("Register clicked")}
+                  onClick={onSwitchToRegister}
                 >
                   Regístrate
                 </button>

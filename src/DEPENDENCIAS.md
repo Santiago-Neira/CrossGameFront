@@ -19,6 +19,7 @@ Sin embargo, si deseas ejecutar el proyecto localmente, aquí están todas las d
     "react-dom": "^18.3.1",
     "lucide-react": "^0.487.0",
     "embla-carousel-react": "^8.6.0",
+    "@radix-ui/react-select": "^2.1.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "tailwind-merge": "^2.5.5"
@@ -49,6 +50,7 @@ cd game-catalog
 npm install react react-dom
 npm install lucide-react@0.487.0
 npm install embla-carousel-react@8.6.0
+npm install @radix-ui/react-select@2.1.6
 npm install class-variance-authority clsx tailwind-merge
 
 # Instalar dependencias de desarrollo
@@ -121,12 +123,15 @@ vanilla-version/
 Componentes de UI utilizados (ya incluidos en `/components/ui`):
 - `button.tsx` - Botones
 - `input.tsx` - Campos de texto
+- `select.tsx` - Selectores desplegables (filtros de género, plataforma, idioma)
 - `dialog.tsx` - Modales
 - `label.tsx` - Etiquetas de formulario
 - `carousel.tsx` - Componente de carrusel
 - `tabs.tsx` - Sistema de pestañas
 - `scroll-area.tsx` - Áreas desplazables
 - `badge.tsx` - Insignias
+
+**Nota**: El componente `select.tsx` depende de `@radix-ui/react-select@2.1.6` que está incluido en las dependencias principales.
 
 ### 4. **Tailwind CSS**
 - **Versión**: 4.0.0
@@ -164,6 +169,7 @@ Componentes de UI utilizados (ya incluidos en `/components/ui`):
     "react-dom": "^18.3.1",
     "lucide-react": "^0.487.0",
     "embla-carousel-react": "^8.6.0",
+    "@radix-ui/react-select": "^2.1.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "tailwind-merge": "^2.5.5"
@@ -233,7 +239,7 @@ export default defineConfig({
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GameVault - Catálogo de Videojuegos</title>
+    <title>CrossGame - Catálogo de Videojuegos</title>
   </head>
   <body>
     <div id="root"></div>
@@ -343,7 +349,7 @@ npm install lucide-react@latest
 - ✅ Cero dependencias
 
 **Para desarrollo local React**:
-- 📦 Instala las 12 dependencias listadas
+- 📦 Instala las 13 dependencias listadas (8 principales + 5 de desarrollo)
 - 🚀 Ejecuta `npm run dev`
 
 ¡Tu aplicación está lista para usar! 🎉
